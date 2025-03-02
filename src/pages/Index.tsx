@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Palette, Scissors, Heart, Sparkles, ChevronDown, ChevronLeft, ChevronRight, Eye, MapPin, Phone, Clock, Mail, Instagram, Facebook, Twitter } from 'lucide-react';
 import { toast } from 'sonner';
@@ -175,23 +174,6 @@ const Index = () => {
     
     window.addEventListener('scroll', handleScroll);
 
-    // Hero image parallax effect
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!imageRef.current) return;
-      
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
-      // Calculate percentage from the center
-      const moveX = (clientX - innerWidth / 2) / innerWidth * 10;
-      const moveY = (clientY - innerHeight / 2) / innerHeight * 10;
-      
-      // Apply the transform with a dampened effect
-      imageRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-
     // Testimonials auto-advance
     timerRef.current = window.setTimeout(() => {
       setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
@@ -200,7 +182,6 @@ const Index = () => {
     return () => {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [activeIndex, testimonials.length]);
@@ -312,10 +293,10 @@ const Index = () => {
           {/* Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-rose-50 to-neutral-50 opacity-60"></div>
           
-          {/* Floating image */}
+          {/* Image (now static) */}
           <div 
             ref={imageRef} 
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/2 h-3/4 transition-transform duration-300 ease-out image-glow opacity-80 md:opacity-100 pointer-events-none select-none"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/2 h-3/4 image-glow opacity-80 md:opacity-100 pointer-events-none select-none"
             style={{ 
               backgroundImage: "url('https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=1000&auto=format')", 
               backgroundSize: "cover",
